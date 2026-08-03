@@ -19,13 +19,13 @@ Inventory adjustments and sales data adjustments
 Data backup and end-of-day reconciliation
 
 IT HAS THE FOLLOWING ENTITIES
-Product
-Customer
-User
-Sale
-Sale Item
-Payment
-Category
-Supplier
-Receipt
+Product,
+Customer,
+User,
+Sale,
+Sale Item,
+Payment,
+Category,
+Supplier,
+Receipt.
 
