@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.payment import Payment
 from sqlalchemy.orm import Session
 
@@ -6,7 +8,7 @@ class PaymentRepository:
         self.model = Payment
 
     def get(self, db: Session, id: str):
-        return db.get(Payment, id)
+        return db.get(Payment, UUID(id))
 
     def get_all(self, db: Session):
         return db.query(Payment).all()

@@ -13,7 +13,7 @@ def list_category(db:Session = Depends (get_db)):
     return category_service.list_categorys(db)
 
 @router.get("/{category_id}", response_model=CategoryRead)
-def get_category(category_id:int, db: Session = Depends(get_db)):
+def get_category(category_id: str, db: Session = Depends(get_db)):
     return category_service.get_category(db, category_id)
 
 @router.post("/", response_model=CategoryRead, status_code=status.HTTP_201_CREATED)
@@ -22,11 +22,11 @@ def create_category(data:CategoryCreate, db: Session=Depends(get_db)):
 
 @router.put("/{category_id}", response_model=CategoryRead)
 def update_category(
-    category_id: int, data: CategoryUpdate, db:Session= Depends(get_db)
+    category_id: str, data: CategoryUpdate, db:Session= Depends(get_db)
 ):
     return category_service.update_category(db, category_id, data)
 
 @router.delete("/{category_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_category(category_id: int, db: Session = Depends(get_db)):
+def delete_category(category_id: str, db: Session = Depends(get_db)):
     return category_service.delete_category(db, category_id)
 

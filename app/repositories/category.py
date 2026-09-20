@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.category import Category
 from sqlalchemy.orm import Session
 
@@ -5,8 +7,8 @@ class CategoryRepository:
     def __init__(self):
         self.model=Category
         
-    def get(self, db: Session, id:int):
-        return db.get (Category, id)
+    def get(self, db: Session, id: str):
+        return db.get(Category, UUID(id))
     
     def get_all(self, db:Session):
         return db.query(Category).all()
@@ -16,7 +18,7 @@ class CategoryRepository:
         db.add(category)
         db.commit()
         db.refresh(category)
-        return Category
+        return category
     
     def update(self, db: Session, db_obj: Category, data:dict):
         for field, value in data.items():
@@ -29,6 +31,5 @@ class CategoryRepository:
         db.delete(db_obj)
         db.commit()
         
-    
+
 category_repository=CategoryRepository()
-        

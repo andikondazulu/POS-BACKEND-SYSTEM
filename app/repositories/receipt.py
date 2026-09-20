@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.receipt import Receipt
 from sqlalchemy.orm import Session
 
@@ -5,8 +7,8 @@ class ReceiptRepository:
     def __init__(self):
         self.model=Receipt
         
-    def get(self, db: Session, id:int):
-        return db.get (Receipt, id)
+    def get(self, db: Session, id: str):
+        return db.get(Receipt, UUID(id))
     
     def get_all(self, db:Session):
         return db.query(Receipt).all()
@@ -32,9 +34,5 @@ class ReceiptRepository:
         db.delete(db_obj)
         db.commit()
         
-    
+
 receipt_repository=ReceiptRepository()
-        
-        
-        
-    

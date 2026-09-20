@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.repositories.category import category_repository
 from app.schemas.category import CategoryCreate, CategoryUpdate
 
-def get_category(db: Session, category_id: int):
+def get_category(db: Session, category_id: str):
     category = category_repository.get(db, category_id)
     if not category:
         raise HTTPException(
@@ -17,10 +17,10 @@ def list_categorys(db: Session):
 def create_category(db: Session, data: CategoryCreate):
     return category_repository.create(db, data.model_dump())
 
-def update_category(db: Session, category_id: int, data: CategoryUpdate):
+def update_category(db: Session, category_id: str, data: CategoryUpdate):
     category = get_category(db, category_id)
     return category_repository.update(db, category, data.model_dump(exclude_unset=True))
 
-def delete_category(db: Session, category_id: int):
+def delete_category(db: Session, category_id: str):
     category = get_category(db, category_id)
     category_repository.delete(db, category)

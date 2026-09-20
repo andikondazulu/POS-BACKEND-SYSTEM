@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.sale_item import SaleItem
 from sqlalchemy.orm import Session
 
@@ -5,8 +7,8 @@ class SaleItemRepository:
     def __init__(self):
         self.model=SaleItem
         
-    def get(self, db: Session, id:int):
-        return db.get (SaleItem, id)
+    def get(self, db: Session, id: str):
+        return db.get(SaleItem, UUID(id))
     
     def get_all(self, db:Session):
         return db.query(SaleItem).all()
@@ -23,15 +25,11 @@ class SaleItemRepository:
             setattr(db_obj, field, value)
         db.commit()
         db.refresh(db_obj)
-        
         return db_obj
+    
     def delete (self, db: Session, db_obj:SaleItem):
         db.delete(db_obj)
         db.commit()
         
-    
+
 sale_item_repository=SaleItemRepository()
-        
-        
-        
-    

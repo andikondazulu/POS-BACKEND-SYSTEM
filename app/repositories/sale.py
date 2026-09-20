@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.sale import Sale
 from sqlalchemy.orm import Session
 
@@ -5,15 +7,15 @@ class SaleRepository:
     def __init__(self):
         self.model=Sale
         
-    def get(self, db: Session, id:int):
-        return db.get (Sale, id)
+    def get(self, db: Session, id: str):
+        return db.get(Sale, UUID(id))
     
     def get_all(self, db:Session):
         return db.query(Sale).all()
     
     def get_all_by_status(self, db:Session, status:str):
-           return db.query(Sale).filter(Sale.status == status).all()
-       
+        return db.query(Sale).filter(Sale.status == status).all()
+    
     def create(self, db: Session, data:dict):
         sale=Sale(**data)
         db.add(sale)
@@ -22,7 +24,7 @@ class SaleRepository:
         return sale
     
     def update(self, db: Session, db_obj: Sale, data:dict):
-        for field, value in data.s():
+        for field, value in data.items():
             setattr(db_obj, field, value)
         db.commit()
         db.refresh(db_obj)
@@ -32,9 +34,5 @@ class SaleRepository:
         db.delete(db_obj)
         db.commit()
         
-    
+
 sale_repository=SaleRepository()
-        
-        
-        
-    

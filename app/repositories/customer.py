@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.models.customer import Customer
 from sqlalchemy.orm import Session
 
@@ -5,8 +7,8 @@ class CustomerRepository:
     def __init__(self):
         self.model= Customer
         
-    def get(self, db: Session, id:int):
-        return db.get (Customer, id)
+    def get(self, db: Session, id: str):
+        return db.get(Customer, UUID(id))
     
     def get_all(self, db:Session):
         return db.query(Customer).all()
@@ -29,6 +31,5 @@ class CustomerRepository:
         db.delete(db_obj)
         db.commit()
         
-    
+
 customer_repository=CustomerRepository()
-        

@@ -1,11 +1,13 @@
+from uuid import UUID
+
 from app.models.supplier import Supplier
 from sqlalchemy.orm import Session
 
 class SupplierRepository:
     def __init__(self):
         self.model=Supplier
-    def get(self, db: Session, id:int):
-        return db.get (Supplier, id)
+    def get(self, db: Session, id: str):
+        return db.get(Supplier, UUID(id))
     def get_all(self, db:Session):
         return db.query(Supplier).all()
     def create(self, db: Session, data:dict):
@@ -24,9 +26,5 @@ class SupplierRepository:
         db.delete(db_obj)
         db.commit()
         
-    
+
 supplier_repository=SupplierRepository()
-        
-        
-        
-    

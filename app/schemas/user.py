@@ -1,31 +1,34 @@
 from datetime import datetime
 from app.models.user import UserRole
-
+from typing import Optional
 from pydantic import BaseModel, ConfigDict
+from uuid import UUID
 
 class UserBase(BaseModel):
+    username: str
     password : str
     first_name : str
     last_name : str
     email: str
     role: UserRole
-    is_active :bool | None = None
+    is_active :Optional [bool] = None
     
 class UserCreate(UserBase):
-    pass
+    password:str
 
 class UserUpdate(BaseModel):
-        password : str | None =None
-        name : str | None =None
-        last_name : str | None =None
-        email: str | None =None
-        role: UserRole | None =None
-        is_active: bool | None =None
+        password : Optional [str] =None
+        name : Optional [str] =None
+        last_name : Optional [str] =None
+        email: Optional [str] =None
+        role: Optional [UserRole] =None
+        is_active: Optional [bool] = None
         
 class UserRead(UserBase):
     model_config=ConfigDict(from_attributes=True)
     
-    User_id: str
+    user_id: UUID
+    is_active: bool 
     created_at: datetime
     updated_at : datetime
     

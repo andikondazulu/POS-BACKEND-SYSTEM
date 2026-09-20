@@ -9,8 +9,12 @@ router = APIRouter(prefix="/supplier", tags=["Supplier"])
 
 
 @router.get("/", response_model=list[SupplierRead])
-def list_suppliers(db: Session = Depends(get_db)):
-    return supplier_service.list_suppliers(db)
+def list_suppliers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return supplier_service.get_all(db, skip, limit)
+
+# @router.get("/", response_model=list[SupplierRead])
+# def list_suppliers(db: Session = Depends(get_db)):
+#     return supplier_service.list_suppliers(db)
 
 
 @router.get("/{supplier_id}", response_model=SupplierRead)
